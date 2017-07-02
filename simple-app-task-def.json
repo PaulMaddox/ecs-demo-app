@@ -1,49 +1,47 @@
 {
-    "family": "ecs-demo-app",
-    "volumes": [],
+    "networkMode": "bridge",
+    "taskRoleArn": null,
     "containerDefinitions": [
         {
-            "environment": [],
-            "name": "",
-            "image": "amazon/amazon-ecs-sample",
-            "cpu": 10,
+            "volumesFrom": null,
             "memory": 128,
+            "extraHosts": null,
+            "dnsServers": [],
+            "disableNetworking": null,
+            "dnsSearchDomains": [],
             "portMappings": [
                 {
-                    "containerPort": 8000
+                    "hostPort": "80",
+                    "containerPort": "8000",
+                    "protocol": "tcp"
                 }
             ],
-            "mountPoints": [
+            "hostname": null,
+            "essential": true,
+            "entryPoint": [],
+            "mountPoints": null,
+            "name": "simple-app",
+            "ulimits": null,
+            "dockerSecurityOptions": [],
+            "environment": [
                 {
-                    "sourceVolume": "my-vol",
-                    "containerPath": "/var/www/my-vol"
+                    "name": "Tag",
+                    "value": "301c03d6"
                 }
             ],
-            "entryPoint": [
-                "/usr/sbin/apache2",
-                "-D",
-                "FOREGROUND"
-            ],
-            "essential": true
-        },
-        {
-            "name": "busybox",
-            "image": "busybox",
-            "cpu": 10,
-            "memory": 500,
-            "volumesFrom": [
-            {
-              "sourceContainer": "simple-app"
-            }
-            ],
-            "entryPoint": [
-                "sh",
-                "-c"
-            ],
-            "command": [
-                "/bin/sh -c \"while true; do /bin/date > /var/www/my-vol/date; sleep 1; done\""
-            ],
-            "essential": false
+            "links": [],
+            "workingDirectory": null,
+            "readonlyRootFilesystem": null,
+            "image": "860498507463.dkr.ecr.eu-west-1.amazonaws.com/ecs-c-repos-1l9cx9zgjjglh:301c03d6",
+            "command": [],
+            "user": null,
+            "dockerLabels": null,
+            "logConfiguration": null,
+            "cpu": 0,
+            "privileged": null
         }
-    ]
+    ],
+    "volumes": [],
+    "family": "ECS-ContinuousDeployment-DeploymentPipeline-139EZ6JE8QN1A-Service-simple-app",
+    "placementConstraints": []
 }

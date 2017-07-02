@@ -1,0 +1,49 @@
+{
+    "family": "ecs-demo-app",
+    "volumes": [],
+    "containerDefinitions": [
+        {
+            "environment": [],
+            "name": "",
+            "image": "amazon/amazon-ecs-sample",
+            "cpu": 10,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "containerPort": 8000
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "my-vol",
+                    "containerPath": "/var/www/my-vol"
+                }
+            ],
+            "entryPoint": [
+                "/usr/sbin/apache2",
+                "-D",
+                "FOREGROUND"
+            ],
+            "essential": true
+        },
+        {
+            "name": "busybox",
+            "image": "busybox",
+            "cpu": 10,
+            "memory": 500,
+            "volumesFrom": [
+            {
+              "sourceContainer": "simple-app"
+            }
+            ],
+            "entryPoint": [
+                "sh",
+                "-c"
+            ],
+            "command": [
+                "/bin/sh -c \"while true; do /bin/date > /var/www/my-vol/date; sleep 1; done\""
+            ],
+            "essential": false
+        }
+    ]
+}
